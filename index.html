@@ -31,12 +31,13 @@
       flex-shrink: 0;
       margin-right: auto;
       color: #fff;
-      font: 700 20px/1 Arial, sans-serif;
+      font: 700 24px/1 Arial, sans-serif;
       letter-spacing: -0.5px;
       text-decoration: none;
       white-space: nowrap;
     }
     .brand__accent { color: #ff78df; }
+    .brand__full { font-weight: 900; }
     .brand__short { display: none; }
     .brand:focus-visible { outline: 2px solid #fff; outline-offset: 6px; }
     .button {
@@ -76,8 +77,8 @@
 <body>
   <header class="top-bar" aria-label="Top bar">
     <a class="brand" href="./" aria-label="WireFrame Casino home">
-      <span class="brand__full" aria-hidden="true">WireFrame <span class="brand__accent">Casino</span></span>
-      <span class="brand__short" aria-hidden="true">WF</span>
+      <span class="brand__full" aria-hidden="true">WireFrame<span class="brand__accent">Casino</span></span>
+      <span class="brand__short" aria-hidden="true">W<span class="brand__accent">C</span></span>
     </a>
     <button class="button button--secondary" type="button" data-auth-open="signin" aria-haspopup="dialog" aria-controls="auth-dialog">Sign In</button>
     <button class="button button--primary" type="button" data-auth-open="signup" aria-haspopup="dialog" aria-controls="auth-dialog">Join Now</button>
