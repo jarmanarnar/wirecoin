@@ -14,6 +14,16 @@ let opener = null;
 let previousOverflow = '';
 let pointerStartedOutside = false;
 
+// Keep programmatic dialog focus from showing a keyboard ring after a tap.
+document.addEventListener('pointerdown', () => {
+  document.documentElement.dataset.inputModality = 'pointer';
+}, true);
+document.addEventListener('keydown', event => {
+  if (!event.altKey && !event.ctrlKey && !event.metaKey) {
+    document.documentElement.dataset.inputModality = 'keyboard';
+  }
+}, true);
+
 function resetPasswordVisibility() {
   for (const button of eyeButtons) {
     const input = document.getElementById(button.dataset.passwordFor);
