@@ -10,14 +10,35 @@ Published with GitHub Pages: https://jarmanarnar.github.io/wireframe-casino/
 
 Run `npm start` and open http://127.0.0.1:4335/.
 
-The site uses plain HTML, CSS and JavaScript with no build step or dependencies. GitHub Pages serves `index.html`, `auth.css` and `auth.js` from the repository root on the `main` branch. `server.mjs` is used only for local development.
+The site uses plain HTML, CSS and JavaScript with no build step or dependencies. GitHub Pages serves the root of `main`. `server.mjs` is used only for local development.
 
-## Current design
+## Shared design language
 
-- Page background: `#13010F`
-- Top bar: `#000000`, without a bottom border
-- Primary button: `#FF78DF`
-- Responsive logo: WireFrame Casino / WF
-- Sign In and Sign Up modal with a blank artwork panel
+`styles.css` is the single source of truth for colors, typography, corner radii, focus behavior and reusable button styles. `auth.css` uses these same tokens for modal layout and components.
+
+| Role | Value |
+| --- | --- |
+| Page and empty artwork panel | `#13010F` |
+| Top bar and form fields | `#000000` |
+| Modal surface | 40% page color mixed with black |
+| Primary accent | `#FF78DF` |
+| Primary hover / pressed | `#FF96E7` / `#EE62CD` |
+| Text on primary | `#280121` |
+| Main text | `#FFFFFF` |
+| Muted / subtle text | White at 72% / 60% opacity |
+| Border | `#805375` at 40% opacity |
+| Border hover / field focus | `#B47AA6` at 55% opacity |
+| Subtle divider | `#805375` at 20% opacity |
+| Secondary hover / pressed | `#3F1336` / `#501C45` |
+| Font | Arial, sans-serif |
+| Type sizes | 11, 12, 14, 16, 20, 24px |
+| Control corners | 8px |
+| Header height | 72px |
+
+The full logo is WireFrameCasino; screens up to 540px show WC. Both use 24px / 900, with Casino or C in pink. The top bar has no bottom border. The modal has no outer border. Its artwork panel stays empty and is hidden up to 640px.
+
+New components must reuse the shared design language. Do not introduce separate palettes or fonts unless the user explicitly requests a design change. Use `button button--primary` for primary actions and `button button--secondary` for secondary buttons; component classes may adjust their layout and size.
+
+Focus remains accessible for keyboard navigation. Account tabs use a text underline instead of a focus outline. Pointer and touch interactions do not show keyboard indicators. Keep the fixed app shell and internal page scrolling.
 
 Push changes to `main` to update the published preview.

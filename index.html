@@ -4,76 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>WireFrame Casino</title>
-  <link rel="stylesheet" href="./auth.css?v=2">
+  <link rel="stylesheet" href="./styles.css?v=1">
+  <link rel="stylesheet" href="./auth.css?v=3">
   <script src="./auth.js?v=2" defer></script>
-  <style>
-    html, body { margin: 0; background: #13010F; overflow: hidden; overscroll-behavior: none; }
-    html { height: 100%; }
-    body { position: fixed; inset: 0; }
-    .page-content { position: absolute; inset: 72px 0 0; overflow-y: auto; overscroll-behavior: none; }
-    .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 10;
-      box-sizing: border-box;
-      width: 100%;
-      height: 72px;
-      touch-action: pinch-zoom;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 12px;
-      padding: 12px clamp(16px, 3vw, 24px);
-      background: #000000;
-    }
-    .brand {
-      flex-shrink: 0;
-      margin-right: auto;
-      color: #fff;
-      font: 700 24px/1 Arial, sans-serif;
-      letter-spacing: -0.5px;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-    .brand__accent { color: #ff78df; }
-    .brand__full { font-weight: 900; }
-    .brand__short { display: none; font-weight: 900; }
-    .brand:focus-visible { outline: 2px solid #fff; outline-offset: 6px; }
-    .button {
-      box-sizing: border-box;
-      flex-shrink: 0;
-      height: 40px;
-      padding: 0 20px;
-      border: 1px solid transparent;
-      border-radius: 8px;
-      font: 600 14px/1 Arial, sans-serif;
-      cursor: pointer;
-      transition: background-color 150ms ease, border-color 150ms ease;
-    }
-    .button--primary {
-      background: #ff78df;
-      color: #280121;
-    }
-    .button--primary:hover { background: #ff96e7; }
-    .button--primary:active { background: #ee62cd; }
-    .button--secondary {
-      background: transparent;
-      border-color: #805375;
-      color: #fff;
-    }
-    .button--secondary:hover { background: #3f1336; border-color: #b47aa6; }
-    .button--secondary:active { background: #501c45; }
-    .button:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-    :root[data-input-modality="pointer"] :focus { outline: none; }
-    @media (max-width: 540px) {
-      .brand__full { display: none; }
-      .brand__short { display: inline; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .button { transition: none; }
-    }
-  </style>
 </head>
 <body>
   <header class="top-bar" aria-label="Top bar">
@@ -133,7 +66,7 @@
               <button class="auth-link" id="auth-forgot" type="button">Forgot password?</button>
             </div>
             <p class="auth-field-hint" id="auth-field-hint" aria-live="polite"></p>
-            <button class="auth-submit" id="auth-submit" type="submit">Sign Up</button>
+            <button class="button button--primary auth-submit" id="auth-submit" type="submit">Sign Up</button>
           </form>
 
           <form class="auth-recovery" id="auth-recovery" hidden>
@@ -143,15 +76,15 @@
               <span class="auth-sr-only">Recovery email</span>
               <input id="auth-recovery-email" type="email" placeholder="Email" autocomplete="email" required spellcheck="false" autocapitalize="none">
             </label>
-            <button class="auth-submit" type="submit">Send reset link</button>
+            <button class="button button--primary auth-submit" type="submit">Send reset link</button>
             <button class="auth-link auth-back" type="button" id="auth-back">Back to Sign In</button>
           </form>
 
           <div class="auth-social-area" id="auth-social-area">
             <div class="auth-divider"><span>or continue with</span></div>
             <div class="auth-socials">
-              <button type="button" class="auth-social" aria-label="Continue with Facebook" data-social="Facebook"><span class="auth-facebook" aria-hidden="true">f</span></button>
-              <button type="button" class="auth-social" aria-label="Continue with Google" data-social="Google"><span aria-hidden="true">G</span></button>
+              <button type="button" class="button button--secondary auth-social" aria-label="Continue with Facebook" data-social="Facebook"><span class="auth-facebook" aria-hidden="true">f</span></button>
+              <button type="button" class="button button--secondary auth-social" aria-label="Continue with Google" data-social="Google"><span aria-hidden="true">G</span></button>
             </div>
           </div>
           <p class="auth-feedback" id="auth-feedback" role="status"></p>
