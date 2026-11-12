@@ -10,7 +10,13 @@ Published with GitHub Pages: https://jarmanarnar.github.io/wireframe-casino/
 
 Run `npm start` and open http://127.0.0.1:4335/.
 
-The site uses plain HTML, CSS and JavaScript with no build step or dependencies. GitHub Pages serves the root of `main`. `server.mjs` is used only for local development.
+The site uses plain HTML, CSS and JavaScript with no build step or dependency installation. GitHub Pages serves the root of `main`. `server.mjs` is used only for local development.
+
+## Banner carousel
+
+The playground opens with four empty banners. The layout shows one banner at a time on narrow screens, two on wider screens, and three on large screens. Use the indicators, swipe or drag the banners, or use the arrow keys while the banner area is focused. The active indicator fills over six seconds before the carousel advances. Rotation pauses during interaction and while the account dialog is open, and respects reduced motion.
+
+The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
 
 ## Shared design language
 
