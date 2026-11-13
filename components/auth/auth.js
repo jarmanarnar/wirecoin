@@ -181,7 +181,7 @@ export function createAuthDialog({ onOpenChange = () => {} } = {}) {
   });
   for (const button of dialog.querySelectorAll('[data-social]')) {
     on(button, 'click', () => {
-      feedback.textContent = `${button.dataset.social} sign-in is a placeholder in this wireframe.`;
+      feedback.textContent = `${button.dataset.social} sign-in is a placeholder in this WireCoin demo.`;
     });
   }
   

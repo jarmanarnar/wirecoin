@@ -41,5 +41,5 @@ createServer(async (request, response) => {
     response.writeHead(404).end('Not found');
   }
 }).listen(port, '127.0.0.1', () => {
-  console.log(`WireFrame Casino: http://127.0.0.1:${port}/`);
+  console.log(`WireCoin: http://127.0.0.1:${port}/`);
 });

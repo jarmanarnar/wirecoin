@@ -1,5 +1,6 @@
-# WireFrame Casino project instructions
+# WireCoin project instructions
 
+- The product name is WireCoin. Use WireCoin consistently in UI, metadata, documentation and design files; keep the mobile WC wordmark.
 - Every new or edited component must match the existing site. Use the shared color, type and radius tokens in styles.css; do not create a component-specific palette or font family.
 - Preserve the approved black / deep purple / pink language. New visual directions require an explicit user request; reference sites provide behavior or structure, not permission to copy their colors.
 - Reuse the button and button--primary / button--secondary classes. Component CSS may change layout and size, while colors and interaction states come from the shared styles.

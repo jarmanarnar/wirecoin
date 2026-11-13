@@ -1,10 +1,10 @@
-# WireFrame Casino
+# WireCoin
 
-A responsive playground for casino UI components. Authentication forms are interactive previews only: they do not create accounts, store credentials, or send email.
+A responsive playground for social gaming UI components. Authentication forms are interactive previews only: they do not create accounts, store credentials, or send email.
 
 ## Preview
 
-Published with GitHub Pages: https://jarmanarnar.github.io/wireframe-casino/
+Published with GitHub Pages: https://jarmanarnar.github.io/wirecoin/
 
 ## Local development
 
@@ -49,7 +49,7 @@ Set the promotion list in `config.js` under `promotions.items`. Each item has a 
 | Control corners | 8px |
 | Header height | 72px |
 
-The full logo is WireFrameCasino; screens up to 540px show WC. Both use 24px / 900, with Casino or C in pink. The top bar has no bottom border. The modal has no outer border or vertical divider between the artwork panel and the form. Its artwork panel stays empty and is hidden up to 640px.
+The full logo is WireCoin; screens up to 540px show WC. Both use 24px / 900, with Coin or C in pink. The top bar has no bottom border. The modal has no outer border or vertical divider between the artwork panel and the form. Its artwork panel stays empty and is hidden up to 640px.
 
 New components must reuse the shared design language. Do not introduce separate palettes or fonts unless the user explicitly requests a design change. Use `button button--primary` for primary actions and `button button--secondary` for secondary buttons; component classes may adjust their layout and size.
 

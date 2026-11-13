@@ -68,7 +68,7 @@ export const authTemplate = `
             </div>
           </div>
           <p class="auth-feedback" id="auth-feedback" role="status"></p>
-          <p class="auth-preview-note">Wireframe preview &middot; No account is created</p>
+          <p class="auth-preview-note">WireCoin preview &middot; No account is created</p>
         </div>
       </section>
     </div>
