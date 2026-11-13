@@ -9,6 +9,7 @@
 - Account tabs must never have a focus outline. Their keyboard focus indicator is a text underline only.
 - The modal has no outer border and no vertical divider between the empty artwork panel and the form. Keep the subtle field borders and internal dividers separate from the modal edge.
 - Keep borders subdued and form fields black. Use the shared low-contrast border tokens, including field focus, instead of bright pink borders or glow effects. Reserve prominent pink fills for primary actions and active tabs.
+- Promotion cards and popups are empty low-fidelity placeholders: no visible titles, descriptions, images, skeleton text or CTA labels until requested. Keep accessible names for controls.
 - Check desktop and narrow mobile views after layout changes. Keep README.md in sync with approved design decisions.
 
 ## Component architecture

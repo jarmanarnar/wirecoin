@@ -14,9 +14,17 @@ The site uses plain HTML, CSS and JavaScript with no build step or dependency in
 
 ## Banner carousel
 
-The playground opens with four empty banners. The layout shows one banner at a time on narrow screens, two on wider screens, and three on large screens. Use the indicators, swipe or drag the banners, or use the arrow keys while the banner area is focused. The active indicator fills over six seconds before the carousel advances. Rotation pauses during interaction and while the account dialog is open, and respects reduced motion.
+The playground opens with four empty banners. The layout shows one banner at a time on narrow screens, two on wider screens, and three on large screens. Use the indicators, swipe or drag the banners, or use the arrow keys while the banner area is focused. The active indicator fills over six seconds before the carousel advances. Rotation pauses during interaction and while an account or promotion dialog is open, and respects reduced motion.
 
 The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
+
+## Promotions
+
+Four empty promotion cards sit below the carousel, with no visible text, imagery or placeholder copy. The grid uses four columns from 1024px and two below that, with the same gutters and width as the carousel.
+
+Each card opens its matching promotion in a borderless popup with empty artwork and content areas. Close using the X, Escape or the backdrop; focus returns to the card. Background scrolling and carousel rotation pause while a dialog is open.
+
+Set the promotion list in `config.js` under `promotions.items`. Each item has a stable `id`. Future popup content can be supplied with `promotions.renderContent(promotion)`, which returns a DOM element for that item; the default stays empty.
 
 ## Shared design language
 
@@ -53,7 +61,7 @@ Push changes to `main` to update the published preview.
 
 | Path | Responsibility |
 | --- | --- |
-| `config.js` | Feature visibility and carousel settings |
+| `config.js` | Feature visibility, carousel settings and promotion data |
 | `app.js` | Composes components and connects their callbacks |
 | `main.js` | Starts the page |
 | `components/header/` | Header layout; accepts logo and action elements |
@@ -62,6 +70,8 @@ Push changes to `main` to update the published preview.
 | `components/auth-actions/` | Sign In / Join Now buttons; calls the supplied callback |
 | `components/auth/` | Dialog template, behavior and styles |
 | `components/carousel/` | Banner layout, interaction and rotation |
+| `components/promotions/` | Empty promotion cards; reports selections through a callback |
+| `components/promotion-dialog/` | Independent promotion popup, content slot and close/focus behavior |
 | `core/focus.js` | App-wide pointer/keyboard focus behavior |
 | `third-party/embla-carousel/` | Unmodified external carousel engine and MIT license |
 
@@ -74,6 +84,7 @@ Edit `features` in `config.js`, using `true` or `false`, then reload the preview
 - `authButtons`: Sign In / Join Now inside the header.
 - `auth`: the account dialog. Disabling it also omits its header buttons.
 - `carousel`: all banners, indicators and carousel behavior.
+- `promotions`: all promotion cards and their popup.
 
 These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults keep all current features enabled.
 
@@ -88,4 +99,4 @@ New features belong in their own `components/<name>/` directory. Keep cross-feat
 ### Verification
 
 With the local server running, open http://127.0.0.1:4335/tests/components.html.
-The browser checks all 32 feature combinations, safe teardown/remount, independent component use, account flows and carousel pause/resume. The result must show zero failures. Also inspect the main page at desktop and mobile widths after visual changes.
+The browser checks all 64 feature combinations, safe teardown/remount, independent component use, account flows, promotion selection/close/focus, and carousel pause/resume. The result must show zero failures. Also inspect the main page at desktop and mobile widths after visual changes.

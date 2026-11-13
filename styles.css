@@ -3,6 +3,8 @@
 @import url('./components/header/header.css');
 @import url('./components/auth/auth.css');
 @import url('./components/carousel/carousel.css');
+@import url('./components/promotions/promotions.css');
+@import url('./components/promotion-dialog/promotion-dialog.css');
 
 /* Shared design language. All components reuse these tokens and component styles. */
 :root {

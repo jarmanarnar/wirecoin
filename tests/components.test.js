@@ -4,6 +4,8 @@ import { createLogo } from '../components/logo/logo.js';
 import { createHeader } from '../components/header/header.js';
 import { createAuthDialog } from '../components/auth/auth.js';
 import { createCarousel } from '../components/carousel/carousel.js';
+import { createPromotions } from '../components/promotions/promotions.js';
+import { createPromotionDialog } from '../components/promotion-dialog/promotion-dialog.js';
 
 const fixture = document.querySelector('#fixture');
 const results = document.querySelector('#results');
@@ -34,8 +36,8 @@ async function test(name, run) {
   results.append(row);
 }
 
-const names = ['header', 'logo', 'auth', 'authButtons', 'carousel'];
-for (let mask = 0; mask < 32; mask++) {
+const names = ['header', 'logo', 'auth', 'authButtons', 'carousel', 'promotions'];
+for (let mask = 0; mask < 2 ** names.length; mask++) {
   const features = Object.fromEntries(names.map((name, index) => [name, Boolean(mask & (1 << index))]));
   await test('Feature combination ' + mask + ': ' + names.filter(name => features[name]).join(', '), async () => {
     currentApp = await mountApp(fixture, { features });
@@ -45,6 +47,8 @@ for (let mask = 0; mask < 32; mask++) {
     assert(count('.auth-dialog') === Number(features.auth), 'Auth visibility');
     assert(count('[data-auth-open]') === (features.header && features.auth && features.authButtons ? 2 : 0), 'No orphan auth buttons');
     assert(count('.banner-carousel') === Number(features.carousel), 'Carousel visibility');
+    assert(count('.promotions') === Number(features.promotions), 'Promotions visibility');
+    assert(count('.promotion-dialog') === Number(features.promotions), 'No orphan promotion popup');
     assert(getComputedStyle(fixture.querySelector('main')).top === (features.header ? '72px' : '0px'), 'No leftover header gap');
     if (features.auth) {
       const trigger = fixture.querySelector('[data-auth-open="signin"]');
@@ -78,7 +82,7 @@ await test('Remount replaces the previous app and detaches old actions', async (
   assert(fixture.querySelectorAll('.top-bar').length === 1, 'Single header');
   assert(document.body.style.overflow === '', 'Open dialog removed without scroll lock');
   oldTrigger.click();
-  assert(!fixture.querySelector('dialog'), 'Old trigger cannot reopen auth');
+  assert(!fixture.querySelector('.auth-dialog'), 'Old trigger cannot reopen auth');
 });
 
 await test('Concurrent remount keeps only the latest requested app', async () => {
@@ -167,6 +171,83 @@ await test('Leaf controls and standalone features work without app siblings', as
   carousel.element.querySelector('[aria-label="Show banner 2"]').click();
   assert(carousel.element.querySelector('[aria-pressed="true"]').getAttribute('aria-label') === 'Show banner 2', 'Carousel without auth');
   carousel.destroy();
+});
+
+
+await test('Promotion cards open their own content and close accessibly', async () => {
+  const items = [{ id: 'first' }, { id: 'second' }, { id: 'third' }];
+  currentApp = await mountApp(fixture, { promotions: {
+    items,
+    renderContent: promotion => {
+      const content = document.createElement('div');
+      content.dataset.contentFor = promotion.id;
+      return content;
+    },
+  } });
+  const cards = [...currentApp.promotions.element.querySelectorAll('button')];
+  assert(cards.length === items.length, 'Configured promotions produce one card each');
+  assert(!currentApp.promotions.element.textContent.trim(), 'No visible promotion text');
+  for (let index = 0; index < cards.length; index++) {
+    cards[index].click();
+    const dialog = currentApp.promotionDialog;
+    assert(dialog.isOpen && dialog.promotion === items[index], 'Card opens the matching promotion');
+    assert(dialog.element.querySelector('[data-content-for]').dataset.contentFor === items[index].id, 'Matching content rendered');
+    assert(fixture.querySelector('main').style.overflowY === 'hidden', 'Background scrolling locked');
+    dialog.element.querySelector('[aria-label="Close promotion"]').click();
+    assert(!dialog.isOpen && document.activeElement === cards[index], 'Close restores focus to the selected card');
+    assert(fixture.querySelector('main').style.overflowY === '', 'Background scroll restored');
+  }
+  cards[0].click();
+  currentApp.promotionDialog.element.dispatchEvent(new Event('cancel', { cancelable: true }));
+  assert(!currentApp.promotionDialog.isOpen, 'Escape cancellation closes dialog');
+  cards[1].click();
+  const dialog = currentApp.promotionDialog.element;
+  const rect = dialog.getBoundingClientRect();
+  dialog.dispatchEvent(new PointerEvent('pointerdown', { clientX: rect.left - 1, clientY: rect.top - 1 }));
+  dialog.dispatchEvent(new MouseEvent('click', { clientX: rect.left - 1, clientY: rect.top - 1 }));
+  assert(!currentApp.promotionDialog.isOpen, 'Backdrop click closes dialog');
+  cards[2].click();
+  const oldDialog = currentApp.promotionDialog;
+  currentApp = await mountApp(fixture, { features: { promotions: false } });
+  cards[2].click();
+  oldDialog.open(items[2]);
+  assert(!oldDialog.isOpen && !oldDialog.element.isConnected, 'Remount removes open promotion and detaches old triggers');
+  assert(!fixture.querySelector('.promotions, .promotion-dialog'), 'Feature switch removes cards and popup together');
+});
+
+await test('Empty promotion preview and carousel pause share the app lifecycle', async () => {
+  currentApp = await mountApp(fixture);
+  await tick();
+  const card = currentApp.promotions.element.querySelector('button');
+  card.click();
+  const dialog = currentApp.promotionDialog;
+  assert(!dialog.element.textContent.trim(), 'Popup has no copy, labels or CTA text');
+  assert(dialog.element.querySelector('.promotion-dialog__artwork'), 'Empty artwork slot available');
+  const progress = currentApp.carousel.element.getAnimations({ subtree: true })
+    .find(animation => animation.effect.target.classList.contains('banner-carousel__fill'));
+  if (progress) assert(progress.playState === 'paused', 'Promotion popup pauses carousel');
+  dialog.close();
+  await tick();
+  if (progress) assert(progress.playState === 'running', 'Closing popup resumes carousel');
+});
+
+await test('Promotions and promotion popup can be used independently', async () => {
+  const item = { id: 'standalone' };
+  let selected = null;
+  const section = createPromotions({ items: [item], onSelect: promotion => { selected = promotion; } });
+  fixture.append(section.element);
+  const card = section.element.querySelector('button');
+  card.click();
+  assert(selected === item, 'Section reports selected data through callback');
+  const popup = createPromotionDialog();
+  fixture.append(popup.element);
+  popup.open(item, card);
+  assert(popup.isOpen && popup.promotion === item, 'Popup works without app/header/auth/carousel');
+  popup.destroy();
+  selected = null;
+  section.destroy();
+  card.click();
+  assert(selected === null && !popup.element.isConnected, 'Standalone components clean up');
 });
 
 await tick();

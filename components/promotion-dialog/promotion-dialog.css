@@ -1,0 +1,32 @@
+.promotion-dialog {
+  box-sizing: border-box;
+  width: 560px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100dvh - 32px);
+  padding: 0;
+  margin: auto;
+  border: 0;
+  border-radius: var(--radius-dialog);
+  background: var(--color-surface-raised);
+  color: var(--color-text);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.promotion-dialog::backdrop { background: var(--color-overlay); backdrop-filter: blur(5px); }
+.promotion-dialog__artwork { aspect-ratio: 4 / 3; background: var(--color-surface-hover); }
+.promotion-dialog__body { min-height: 144px; }
+.promotion-dialog__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  padding: 8px;
+  border: 0;
+  background: var(--color-surface);
+}
+.promotion-dialog__close svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-width: 1.8; }
+@media (max-width: 640px) {
+  .promotion-dialog { width: 400px; max-width: calc(100vw - 24px); max-height: calc(100dvh - 24px); border-radius: var(--radius-dialog-mobile); }
+}

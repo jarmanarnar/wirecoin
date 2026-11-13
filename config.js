@@ -6,6 +6,15 @@ export const siteConfig = {
     auth: true,
     authButtons: true,
     carousel: true,
+    promotions: true,
+  },
+  promotions: {
+    items: [
+      { id: 'promotion-1' },
+      { id: 'promotion-2' },
+      { id: 'promotion-3' },
+      { id: 'promotion-4' },
+    ],
   },
   carousel: {
     slideCount: 4,
