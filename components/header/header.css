@@ -1,0 +1,17 @@
+.top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--top-bar-height);
+  touch-action: pinch-zoom;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 12px clamp(16px, 3vw, 24px);
+  background: var(--color-surface);
+}
+.top-bar .brand { margin-right: auto; }

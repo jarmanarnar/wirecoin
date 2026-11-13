@@ -1,0 +1,15 @@
+.brand {
+  flex-shrink: 0;
+  color: var(--color-text);
+  font: var(--font-weight-brand) var(--font-size-brand)/1 var(--font-family);
+  letter-spacing: -0.5px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand__accent { color: var(--color-primary); }
+.brand__short { display: none; }
+.brand:focus-visible { outline-offset: 6px; }
+@media (max-width: 540px) {
+  .brand__full { display: none; }
+  .brand__short { display: inline; }
+}

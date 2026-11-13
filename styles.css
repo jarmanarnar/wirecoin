@@ -1,4 +1,10 @@
-/* Shared design language. All components reuse these tokens and button styles. */
+@import url('./components/button/button.css');
+@import url('./components/logo/logo.css');
+@import url('./components/header/header.css');
+@import url('./components/auth/auth.css');
+@import url('./components/carousel/carousel.css');
+
+/* Shared design language. All components reuse these tokens and component styles. */
 :root {
   --color-page: #13010F;
   --color-surface: #000000;
@@ -40,141 +46,9 @@
 html, body { margin: 0; background: var(--color-page); overflow: hidden; overscroll-behavior: none; }
 html { height: 100%; }
 body { position: fixed; inset: 0; color: var(--color-text); font: var(--font-weight-regular) var(--font-size-body)/1.5 var(--font-family); }
-.page-content { position: absolute; inset: var(--top-bar-height) 0 0; overflow-y: auto; overscroll-behavior: none; }
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 10;
-  box-sizing: border-box;
-  width: 100%;
-  height: var(--top-bar-height);
-  touch-action: pinch-zoom;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  padding: 12px clamp(16px, 3vw, 24px);
-  background: var(--color-surface);
-}
-.brand {
-  flex-shrink: 0;
-  margin-right: auto;
-  color: var(--color-text);
-  font: var(--font-weight-brand) var(--font-size-brand)/1 var(--font-family);
-  letter-spacing: -0.5px;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.brand__accent { color: var(--color-primary); }
-.brand__short { display: none; }
-.button {
-  box-sizing: border-box;
-  flex-shrink: 0;
-  height: 40px;
-  padding: 0 20px;
-  border: 1px solid transparent;
-  border-radius: var(--radius-control);
-  font: var(--font-weight-action) var(--font-size-body)/1 var(--font-family);
-  cursor: pointer;
-  transition: var(--transition-control);
-}
-.button--primary { background: var(--color-primary); color: var(--color-on-primary); }
-.button--secondary { background: transparent; border-color: var(--color-border); color: var(--color-text); }
-@media (hover: hover) {
-  .button--primary:hover { background: var(--color-primary-hover); }
-  .button--secondary:hover { background: var(--color-surface-hover); border-color: var(--color-border-hover); }
-}
-.button--primary:active { background: var(--color-primary-active); }
-.button--secondary:active { background: var(--color-surface-active); }
+.page-content { position: absolute; inset: var(--page-top, var(--top-bar-height)) 0 0; overflow-y: auto; overscroll-behavior: none; }
 :focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
-.brand:focus-visible { outline-offset: 6px; }
 :root[data-input-modality="pointer"] :focus { outline: none; }
-@media (max-width: 540px) {
-  .brand__full { display: none; }
-  .brand__short { display: inline; }
-}
 @media (prefers-reduced-motion: reduce) {
   :root { --transition-control: none; }
-}
-
-.banner-carousel {
-  --banner-gap: 16px;
-  --banner-height: 216px;
-  width: min(calc(100% - 2 * clamp(16px, 3vw, 24px)), 80rem);
-  margin: 10px auto 0;
-  container: banner-carousel / inline-size;
-}
-.banner-carousel__viewport { overflow: hidden; touch-action: pan-y pinch-zoom; }
-.banner-carousel:not([data-ready]) .banner-carousel__viewport {
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  touch-action: auto;
-}
-.banner-carousel__track { display: flex; margin-left: calc(-1 * var(--banner-gap)); }
-.banner-carousel__slide {
-  box-sizing: border-box;
-  flex: 0 0 100%;
-  min-width: 0;
-  padding-left: var(--banner-gap);
-  scroll-snap-align: start;
-}
-.banner-carousel__panel {
-  height: var(--banner-height);
-  border-radius: var(--radius-control);
-  background: var(--color-surface-hover);
-}
-.banner-carousel__indicators:not([hidden]) {
-  display: flex;
-  justify-content: center;
-  min-height: 28px;
-}
-.banner-carousel__indicator {
-  display: grid;
-  place-items: center;
-  padding: 0 3px;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  cursor: pointer;
-}
-.banner-carousel__mark {
-  width: 8px;
-  height: 8px;
-  overflow: hidden;
-  border-radius: 999px;
-  background: var(--color-border-hover);
-  transition: width 180ms ease;
-}
-.banner-carousel__fill {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--color-text);
-  transform: scaleX(0);
-  transform-origin: left center;
-}
-.banner-carousel__indicator[aria-pressed="true"] .banner-carousel__mark { width: 28px; }
-.banner-carousel__status {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-}
-@container banner-carousel (min-width: 40rem) {
-  .banner-carousel__slide { flex-basis: 50%; }
-}
-@container banner-carousel (min-width: 70rem) {
-  .banner-carousel__slide { flex-basis: 33.333333%; }
-}
-@media (min-width: 48rem) {
-  .banner-carousel { --banner-height: 188px; margin-top: 16px; }
-  .banner-carousel__indicators:not([hidden]) { min-height: 32px; margin-top: 8px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  .banner-carousel__mark { transition: none; }
-  .banner-carousel__indicator[aria-pressed="true"] .banner-carousel__fill { transform: scaleX(1); }
 }

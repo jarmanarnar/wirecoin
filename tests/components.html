@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Component checks — WireFrame Casino</title>
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    body { position: static; overflow: auto; padding: 24px; }
+    #test-stage { position: fixed; left: 24px; right: 24px; bottom: 24px; transform: translateZ(0); height: 360px; overflow: hidden; margin-block: 24px; }
+    #results li { margin-block: 6px; }
+    [data-result="fail"] { font-weight: bold; }
+    #status { font-size: 20px; }
+  </style>
+  <script type="module" src="./components.test.js"></script>
+</head>
+<body>
+  <h1>Component checks</h1>
+  <p id="status" role="status">Running…</p>
+  <ol id="results"></ol>
+  <div id="test-stage"><div id="fixture"></div></div>
+</body>
+</html>

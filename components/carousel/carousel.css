@@ -1,0 +1,80 @@
+.banner-carousel {
+  --banner-gap: 16px;
+  --banner-height: 216px;
+  width: min(calc(100% - 2 * clamp(16px, 3vw, 24px)), 80rem);
+  margin: 10px auto 0;
+  container: banner-carousel / inline-size;
+}
+.banner-carousel__viewport { overflow: hidden; touch-action: pan-y pinch-zoom; }
+.banner-carousel:not([data-ready]) .banner-carousel__viewport {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  touch-action: auto;
+}
+.banner-carousel__track { display: flex; margin-left: calc(-1 * var(--banner-gap)); }
+.banner-carousel__slide {
+  box-sizing: border-box;
+  flex: 0 0 100%;
+  min-width: 0;
+  padding-left: var(--banner-gap);
+  scroll-snap-align: start;
+}
+.banner-carousel__panel {
+  height: var(--banner-height);
+  border-radius: var(--radius-control);
+  background: var(--color-surface-hover);
+}
+.banner-carousel__indicators:not([hidden]) {
+  display: flex;
+  justify-content: center;
+  min-height: 28px;
+}
+.banner-carousel__indicator {
+  display: grid;
+  place-items: center;
+  padding: 0 3px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+}
+.banner-carousel__mark {
+  width: 8px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-border-hover);
+  transition: width 180ms ease;
+}
+.banner-carousel__fill {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+.banner-carousel__indicator[aria-pressed="true"] .banner-carousel__mark { width: 28px; }
+.banner-carousel__status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@container banner-carousel (min-width: 40rem) {
+  .banner-carousel__slide { flex-basis: 50%; }
+}
+@container banner-carousel (min-width: 70rem) {
+  .banner-carousel__slide { flex-basis: 33.333333%; }
+}
+@media (min-width: 48rem) {
+  .banner-carousel { --banner-height: 188px; margin-top: 16px; }
+  .banner-carousel__indicators:not([hidden]) { min-height: 32px; margin-top: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .banner-carousel__mark { transition: none; }
+  .banner-carousel__indicator[aria-pressed="true"] .banner-carousel__fill { transform: scaleX(1); }
+}

@@ -20,7 +20,7 @@ The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
 
 ## Shared design language
 
-`styles.css` is the single source of truth for colors, typography, corner radii, focus behavior and reusable button styles. `auth.css` uses these same tokens for modal layout and components.
+`styles.css` is the single source of truth for colors, typography, corner radii and focus behavior. It imports each component’s CSS. Shared button styles live in `components/button/button.css`; all other components reuse those styles and the shared tokens.
 
 | Role | Value |
 | --- | --- |
@@ -48,3 +48,44 @@ New components must reuse the shared design language. Do not introduce separate 
 Focus remains accessible for keyboard navigation. Account tabs use a text underline instead of a focus outline. Pointer and touch interactions do not show keyboard indicators. Keep the fixed app shell and internal page scrolling.
 
 Push changes to `main` to update the published preview.
+
+## Independent components
+
+| Path | Responsibility |
+| --- | --- |
+| `config.js` | Feature visibility and carousel settings |
+| `app.js` | Composes components and connects their callbacks |
+| `main.js` | Starts the page |
+| `components/header/` | Header layout; accepts logo and action elements |
+| `components/logo/` | Responsive full wordmark / WC |
+| `components/button/` | Shared primary and secondary button factory and styles |
+| `components/auth-actions/` | Sign In / Join Now buttons; calls the supplied callback |
+| `components/auth/` | Dialog template, behavior and styles |
+| `components/carousel/` | Banner layout, interaction and rotation |
+| `core/focus.js` | App-wide pointer/keyboard focus behavior |
+| `vendor/embla-carousel/` | Unmodified external carousel engine and MIT license |
+
+### Turn features on or off
+
+Edit `features` in `config.js`, using `true` or `false`, then reload the preview. Publish the config change to update GitHub Pages.
+
+- `header`: the entire header; disabling it also removes the reserved 72px space.
+- `logo`: the logo inside the header.
+- `authButtons`: Sign In / Join Now inside the header.
+- `auth`: the account dialog. Disabling it also omits its header buttons.
+- `carousel`: all banners, indicators and carousel behavior.
+
+These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults keep all current features enabled.
+
+### Component contract
+
+Leaf components `createButton()` and `createLogo()` return elements. Composite components return `element` (or `elements`) plus `destroy()`. The carousel must be appended before `mount()` so it can measure its width. It exposes `setPaused(boolean)`; the dialog exposes `open(mode, trigger)`, `close()` and an `onOpenChange` callback. Neither feature looks up the other in the DOM.
+
+`mountApp(root, overrides)` creates one app shell and returns its controller. Remounting the same root destroys the previous instance first. `destroy()` removes owned markup, aborts listeners, cancels animations, disconnects observers and restores any dialog scroll lock. Call it before discarding an app or component. Account markup uses the `auth-*` IDs: mount one account dialog per document.
+
+New features belong in their own `components/<name>/` directory. Keep cross-feature coordination in `app.js` and use the existing shared button and design tokens.
+
+### Verification
+
+With the local server running, open http://127.0.0.1:4335/tests/components.html.
+The browser checks all 32 feature combinations, safe teardown/remount, independent component use, account flows and carousel pause/resume. The result must show zero failures. Also inspect the main page at desktop and mobile widths after visual changes.
