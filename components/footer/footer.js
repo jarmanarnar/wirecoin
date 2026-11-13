@@ -52,28 +52,22 @@ export function createFooter({ logo = null, groups = [], socials = [], legalText
     const nav = document.createElement('nav');
     nav.className = 'site-footer__group';
     nav.setAttribute('aria-label', group.title);
-    const heading = document.createElement('h2');
-    heading.className = 'site-footer__heading';
-    heading.textContent = group.title;
     const list = document.createElement('ul');
     for (const item of group.links) {
       const row = document.createElement('li');
       row.append(createLink(item));
       list.append(row);
     }
-    nav.append(heading, list);
+    nav.append(list);
     grid.append(nav);
   }
   const socialGroup = document.createElement('div');
   socialGroup.className = 'site-footer__group site-footer__community';
-  const socialHeading = document.createElement('h2');
-  socialHeading.className = 'site-footer__heading';
-  socialHeading.textContent = 'Follow us';
   const socialRow = document.createElement('div');
   socialRow.className = 'site-footer__socials';
   socialRow.setAttribute('aria-label', 'Social media');
   for (const item of socials) socialRow.append(createLink(item, true));
-  socialGroup.append(socialHeading, socialRow);
+  socialGroup.append(socialRow);
   grid.append(socialGroup);
 
   const legal = element.querySelector('.site-footer__legal');

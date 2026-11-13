@@ -26,7 +26,6 @@
 .site-footer .brand__short { display: none; }
 .site-footer__responsible { display: flex; align-items: center; gap: 10px; color: var(--color-text-muted); font-size: var(--font-size-small); }
 .site-footer__age { display: grid; place-items: center; box-sizing: border-box; width: 34px; height: 34px; border: 1px solid var(--color-border); border-radius: 50%; font-weight: var(--font-weight-bold); }
-.site-footer__heading { margin: 0 0 14px; font-size: var(--font-size-body); font-weight: var(--font-weight-bold); }
 .site-footer__group { min-width: 0; }
 .site-footer__group ul { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; }
 .site-footer__link { max-width: 100%; min-height: 32px; height: auto; padding: 5px 0; line-height: 1.5; white-space: normal; text-align: left; }

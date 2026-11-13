@@ -30,7 +30,7 @@ Set the promotion list in `config.js` under `promotions.items`. Each item has a 
 
 ## Footer
 
-The independent footer reuses the site wordmark, colors, type and shared text-button style. It includes policy and information links, responsible play / 21+, Instagram, Facebook, Threads, X, disclosure and operator-information areas, copyright and privacy. Four columns become a two-column link grid on narrow screens, with wrapped text and no horizontal scrolling.
+The independent footer reuses the site wordmark, colors, type and shared text-button style. It includes policy and information links, responsible play / 21+, Instagram, Facebook, Threads, X, disclosure and operator-information areas, copyright and privacy. The navigation groups have accessible names without visible column headings. Four columns become a two-column link grid on narrow screens, with wrapped text and no horizontal scrolling.
 
 Set `features.footer` to false to remove it. Edit `footer` in `config.js` to change the content; provide an `href` for real destinations. Unconfigured links show a short availability message instead of navigating to a broken page. Company information is an explicit placeholder, and the disclosure describes the demo rather than claiming an operating business or prizes.
 
