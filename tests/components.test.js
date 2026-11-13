@@ -176,7 +176,7 @@ await test('Leaf controls and standalone features work without app siblings', as
 
 await test('Promotion cards open their own content and close accessibly', async () => {
   const items = [{ id: 'first' }, { id: 'second' }, { id: 'third' }];
-  currentApp = await mountApp(fixture, { promotions: {
+  currentApp = await mountApp(fixture, { features: { promotions: true }, promotions: {
     items,
     renderContent: promotion => {
       const content = document.createElement('div');
@@ -216,7 +216,7 @@ await test('Promotion cards open their own content and close accessibly', async 
 });
 
 await test('Empty promotion preview and carousel pause share the app lifecycle', async () => {
-  currentApp = await mountApp(fixture);
+  currentApp = await mountApp(fixture, { features: { promotions: true } });
   await tick();
   const card = currentApp.promotions.element.querySelector('button');
   card.click();

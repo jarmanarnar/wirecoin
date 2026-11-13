@@ -20,7 +20,9 @@ The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
 
 ## Promotions
 
-Four empty promotion cards sit below the carousel, with no visible text, imagery or placeholder copy. The cards form a compact centered row, with a 4:3 aspect ratio, 12px gaps and a maximum width of 120px per card. They shrink on phones and wrap when needed, within the same gutters and width as the carousel.
+The promotions section is disabled in the current page (`features.promotions: false`). Its cards and popup are not mounted. The independent components remain available for reuse.
+
+When enabled, four empty promotion cards sit below the carousel, with no visible text, imagery or placeholder copy. The cards form a compact centered row, with a 4:3 aspect ratio, 12px gaps and a maximum width of 120px per card. They shrink on phones and wrap when needed, within the same gutters and width as the carousel.
 
 Each card opens its matching promotion in a borderless popup with empty artwork and content areas. Close using the X, Escape or the backdrop; focus returns to the card. Background scrolling and carousel rotation pause while a dialog is open.
 
@@ -86,7 +88,7 @@ Edit `features` in `config.js`, using `true` or `false`, then reload the preview
 - `carousel`: all banners, indicators and carousel behavior.
 - `promotions`: all promotion cards and their popup.
 
-These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults keep all current features enabled.
+These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults enable the header, logo, authentication and carousel; promotions are disabled.
 
 ### Component contract
 

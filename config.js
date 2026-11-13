@@ -6,7 +6,7 @@ export const siteConfig = {
     auth: true,
     authButtons: true,
     carousel: true,
-    promotions: true,
+    promotions: false,
   },
   promotions: {
     items: [
