@@ -1,15 +1,17 @@
 .promotions {
   width: min(calc(100% - 2 * clamp(16px, 3vw, 24px)), 80rem);
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
   margin: 24px auto 32px;
 }
 .promotions__card {
   appearance: none;
   box-sizing: border-box;
   display: block;
-  width: 100%;
+  flex: 0 0 auto;
+  width: clamp(64px, 18vw, 120px);
   aspect-ratio: 4 / 3;
   min-width: 0;
   padding: 0;
@@ -23,6 +25,3 @@
   .promotions__card:hover { background: var(--color-surface-active); }
 }
 .promotions__card:active { background: var(--color-surface-active); }
-@media (min-width: 64rem) {
-  .promotions { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-}

@@ -20,7 +20,7 @@ The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
 
 ## Promotions
 
-Four empty promotion cards sit below the carousel, with no visible text, imagery or placeholder copy. The grid uses four columns from 1024px and two below that, with the same gutters and width as the carousel.
+Four empty promotion cards sit below the carousel, with no visible text, imagery or placeholder copy. The cards form a compact centered row, with a 4:3 aspect ratio, 12px gaps and a maximum width of 120px per card. They shrink on phones and wrap when needed, within the same gutters and width as the carousel.
 
 Each card opens its matching promotion in a borderless popup with empty artwork and content areas. Close using the X, Escape or the backdrop; focus returns to the card. Background scrolling and carousel rotation pause while a dialog is open.
 
