@@ -17,7 +17,7 @@
 .auth-dialog *, .auth-dialog *::before, .auth-dialog *::after { box-sizing: border-box; }
 .auth-dialog [hidden] { display: none !important; }
 .auth-layout { display: grid; grid-template-columns: 1fr 1fr; min-height: 640px; }
-.auth-promo { background: var(--color-page); border-right: 1px solid var(--color-divider); }
+.auth-promo { background: var(--color-page); }
 .auth-content { min-width: 0; }
 .auth-heading { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: 64px; padding: 0 16px; border-bottom: 1px solid var(--color-divider); }
 .auth-heading > .auth-close { grid-column: 3; justify-self: end; }

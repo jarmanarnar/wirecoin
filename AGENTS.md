@@ -7,7 +7,7 @@
 - Preserve the centered account tabs, the empty promotional panel, the responsive wordmark, the 72px fixed header and the internal page scroll.
 - Preserve keyboard focus visibility and the suppression of keyboard outlines after touch or pointer input.
 - Account tabs must never have a focus outline. Their keyboard focus indicator is a text underline only.
-- The modal has no outer border. Keep the subtle field borders and internal dividers separate from the modal edge.
+- The modal has no outer border and no vertical divider between the empty artwork panel and the form. Keep the subtle field borders and internal dividers separate from the modal edge.
 - Keep borders subdued and form fields black. Use the shared low-contrast border tokens, including field focus, instead of bright pink borders or glow effects. Reserve prominent pink fills for primary actions and active tabs.
 - Check desktop and narrow mobile views after layout changes. Keep README.md in sync with approved design decisions.
 

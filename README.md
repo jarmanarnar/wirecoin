@@ -41,7 +41,7 @@ The carousel uses the local MIT-licensed Embla Carousel 8.6.0 browser module.
 | Control corners | 8px |
 | Header height | 72px |
 
-The full logo is WireFrameCasino; screens up to 540px show WC. Both use 24px / 900, with Casino or C in pink. The top bar has no bottom border. The modal has no outer border. Its artwork panel stays empty and is hidden up to 640px.
+The full logo is WireFrameCasino; screens up to 540px show WC. Both use 24px / 900, with Casino or C in pink. The top bar has no bottom border. The modal has no outer border or vertical divider between the artwork panel and the form. Its artwork panel stays empty and is hidden up to 640px.
 
 New components must reuse the shared design language. Do not introduce separate palettes or fonts unless the user explicitly requests a design change. Use `button button--primary` for primary actions and `button button--secondary` for secondary buttons; component classes may adjust their layout and size.
 
