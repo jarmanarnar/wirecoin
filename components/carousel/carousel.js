@@ -1,4 +1,4 @@
-import EmblaCarousel from '../../vendor/embla-carousel/embla-carousel.esm.js';
+import EmblaCarousel from '../../third-party/embla-carousel/embla-carousel.esm.js';
 
 export function createCarousel({ slideCount = 4, rotationDuration = 6000 } = {}) {
   if (!Number.isInteger(slideCount) || slideCount < 1) throw new Error('slideCount must be a positive integer.');

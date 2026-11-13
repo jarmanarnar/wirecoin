@@ -63,7 +63,7 @@ Push changes to `main` to update the published preview.
 | `components/auth/` | Dialog template, behavior and styles |
 | `components/carousel/` | Banner layout, interaction and rotation |
 | `core/focus.js` | App-wide pointer/keyboard focus behavior |
-| `vendor/embla-carousel/` | Unmodified external carousel engine and MIT license |
+| `third-party/embla-carousel/` | Unmodified external carousel engine and MIT license |
 
 ### Turn features on or off
 

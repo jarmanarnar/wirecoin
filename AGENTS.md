@@ -17,5 +17,5 @@
 - app.js is the composition layer. Features communicate through passed callbacks or methods; never query another feature's DOM or import its implementation.
 - Expose optional features through config.js. Disabled components must not initialize listeners, observers or animations. Omit dependent triggers and remove reserved layout space where appropriate.
 - Composite components expose destroy() to remove their markup and clean up listeners, observers, animations and temporary global state. Leaf element factories must not install global listeners.
-- Keep the vendor directory for external libraries and licenses. Do not mix application code into vendor or modify the library to style our components.
+- Keep the third-party directory for external libraries and licenses. Do not mix application code into third-party or modify the library to style our components.
 - Verify feature-off combinations, remount/cleanup and the default desktop/mobile appearance for structural changes. The browser regression checks are at tests/components.html.
