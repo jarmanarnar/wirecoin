@@ -9,14 +9,15 @@ export async function mountApp(root, overrides = {}) {
   mountedApps.get(root)?.destroy();
   const features = { ...siteConfig.features, ...overrides.features };
   const carouselOptions = { ...siteConfig.carousel, ...overrides.carousel };
+  const footerOptions = { ...siteConfig.footer, ...overrides.footer };
   const promotionOptions = { ...siteConfig.promotions, ...overrides.promotions };
   const previousPageTop = root.style.getPropertyValue('--page-top');
   const stopTrackingInput = trackInputModality();
   let destroyed = false;
   let header = null, auth = null, actions = null, carousel = null;
-  let promotions = null, promotionDialog = null;
+  let promotions = null, promotionDialog = null, footer = null;
   const main = document.createElement('main');
-  main.className = 'page-content';
+  main.className = features.footer ? 'page-content page-content--with-footer' : 'page-content';
   main.setAttribute('aria-label', 'Component playground');
 
   function syncModalState() {
@@ -26,6 +27,7 @@ export async function mountApp(root, overrides = {}) {
   }
 
   const app = {
+    get footer() { return footer; },
     get header() { return header; },
     get auth() { return auth; },
     get carousel() { return carousel; },
@@ -34,6 +36,7 @@ export async function mountApp(root, overrides = {}) {
     destroy() {
       if (destroyed) return;
       destroyed = true;
+      footer?.destroy();
       promotionDialog?.destroy();
       promotions?.destroy();
       auth?.destroy();
@@ -50,14 +53,15 @@ export async function mountApp(root, overrides = {}) {
   mountedApps.set(root, app);
   try {
     // Disabled features are not imported or initialized.
-    const [headerModule, logoModule, authModule, actionsModule, carouselModule, promotionsModule, promotionDialogModule] = await Promise.all([
+    const [headerModule, logoModule, authModule, actionsModule, carouselModule, promotionsModule, promotionDialogModule, footerModule] = await Promise.all([
       features.header ? import('./components/header/header.js') : null,
-      features.header && features.logo ? import('./components/logo/logo.js') : null,
+      features.logo && (features.header || features.footer) ? import('./components/logo/logo.js') : null,
       features.auth ? import('./components/auth/auth.js') : null,
       features.header && features.auth && features.authButtons ? import('./components/auth-actions/auth-actions.js') : null,
       features.carousel ? import('./components/carousel/carousel.js') : null,
       features.promotions ? import('./components/promotions/promotions.js') : null,
       features.promotions ? import('./components/promotion-dialog/promotion-dialog.js') : null,
+      features.footer ? import('./components/footer/footer.js') : null,
     ]);
     if (destroyed) return app;
     root.style.setProperty('--page-top', features.header ? 'var(--top-bar-height)' : '0px');
@@ -96,6 +100,10 @@ export async function mountApp(root, overrides = {}) {
       });
       main.append(promotions.element);
       root.append(promotionDialog.element);
+    }
+    if (footerModule) {
+      footer = footerModule.createFooter({ ...footerOptions, logo: logoModule?.createLogo() });
+      main.append(footer.element);
     }
     return app;
   } catch (error) {

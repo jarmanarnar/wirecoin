@@ -28,6 +28,12 @@ Each card opens its matching promotion in a borderless popup with empty artwork 
 
 Set the promotion list in `config.js` under `promotions.items`. Each item has a stable `id`. Future popup content can be supplied with `promotions.renderContent(promotion)`, which returns a DOM element for that item; the default stays empty.
 
+## Footer
+
+The independent footer reuses the site wordmark, colors, type and shared text-button style. It includes policy and information links, responsible play / 21+, Instagram, Facebook, Threads, X, disclosure and operator-information areas, copyright and privacy. Four columns become a two-column link grid on narrow screens, with wrapped text and no horizontal scrolling.
+
+Set `features.footer` to false to remove it. Edit `footer` in `config.js` to change the content; provide an `href` for real destinations. Unconfigured links show a short availability message instead of navigating to a broken page. Company information is an explicit placeholder, and the disclosure describes the demo rather than claiming an operating business or prizes.
+
 ## Shared design language
 
 `styles.css` is the single source of truth for colors, typography, corner radii and focus behavior. It imports each component’s CSS. Shared button styles live in `components/button/button.css`; all other components reuse those styles and the shared tokens.
@@ -72,6 +78,7 @@ Push changes to `main` to update the published preview.
 | `components/auth-actions/` | Sign In / Join Now buttons; calls the supplied callback |
 | `components/auth/` | Dialog template, behavior and styles |
 | `components/carousel/` | Banner layout, interaction and rotation |
+| `components/footer/` | Responsive footer, configurable links and demo availability feedback |
 | `components/promotions/` | Empty promotion cards; reports selections through a callback |
 | `components/promotion-dialog/` | Independent promotion popup, content slot and close/focus behavior |
 | `core/focus.js` | App-wide pointer/keyboard focus behavior |
@@ -86,9 +93,10 @@ Edit `features` in `config.js`, using `true` or `false`, then reload the preview
 - `authButtons`: Sign In / Join Now inside the header.
 - `auth`: the account dialog. Disabling it also omits its header buttons.
 - `carousel`: all banners, indicators and carousel behavior.
+- `footer`: the footer and its content; disabled footers install no listeners or markup.
 - `promotions`: all promotion cards and their popup.
 
-These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults enable the header, logo, authentication and carousel; promotions are disabled.
+These are UI composition switches, not security or account-access controls. Shared CSS remains available; disabled feature modules are not initialized. The defaults enable the header, logo, authentication, carousel and footer; promotions are disabled.
 
 ### Component contract
 
@@ -101,4 +109,4 @@ New features belong in their own `components/<name>/` directory. Keep cross-feat
 ### Verification
 
 With the local server running, open http://127.0.0.1:4335/tests/components.html.
-The browser checks all 64 feature combinations, safe teardown/remount, independent component use, account flows, promotion selection/close/focus, and carousel pause/resume. The result must show zero failures. Also inspect the main page at desktop and mobile widths after visual changes.
+The browser checks all 128 feature combinations, safe teardown/remount, independent component use, account flows, promotion selection/close/focus, and carousel pause/resume. The result must show zero failures. Also inspect the main page at desktop and mobile widths after visual changes.

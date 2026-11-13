@@ -36,17 +36,19 @@ async function test(name, run) {
   results.append(row);
 }
 
-const names = ['header', 'logo', 'auth', 'authButtons', 'carousel', 'promotions'];
+const names = ['header', 'logo', 'auth', 'authButtons', 'carousel', 'promotions', 'footer'];
 for (let mask = 0; mask < 2 ** names.length; mask++) {
   const features = Object.fromEntries(names.map((name, index) => [name, Boolean(mask & (1 << index))]));
   await test('Feature combination ' + mask + ': ' + names.filter(name => features[name]).join(', '), async () => {
     currentApp = await mountApp(fixture, { features });
     const count = selector => fixture.querySelectorAll(selector).length;
     assert(count('.top-bar') === Number(features.header), 'Header visibility');
-    assert(count('.brand') === Number(features.header && features.logo), 'Logo visibility');
+    assert(count('.top-bar .brand') === Number(features.header && features.logo), 'Logo visibility');
     assert(count('.auth-dialog') === Number(features.auth), 'Auth visibility');
     assert(count('[data-auth-open]') === (features.header && features.auth && features.authButtons ? 2 : 0), 'No orphan auth buttons');
     assert(count('.banner-carousel') === Number(features.carousel), 'Carousel visibility');
+    assert(count('.site-footer') === Number(features.footer), 'Footer visibility');
+    assert(count('.site-footer .brand') === Number(features.footer && features.logo), 'Footer logo respects shared feature switch');
     assert(count('.promotions') === Number(features.promotions), 'Promotions visibility');
     assert(count('.promotion-dialog') === Number(features.promotions), 'No orphan promotion popup');
     assert(getComputedStyle(fixture.querySelector('main')).top === (features.header ? '72px' : '0px'), 'No leftover header gap');
@@ -72,6 +74,22 @@ for (let mask = 0; mask < 2 ** names.length; mask++) {
     await tick();
   });
 }
+
+
+await test('Footer controls, destinations and teardown work independently', async () => {
+  currentApp = await mountApp(fixture, { features: { header: false, auth: false, carousel: false }, footer: { socials: [{ id: 'instagram', label: 'Instagram', href: 'https://example.com/wirecoin' }] } });
+  const footer = currentApp.footer.element;
+  const control = footer.querySelector('nav button');
+  control.click();
+  assert(footer.querySelector('[role="status"]').textContent.includes('Terms & Conditions'), 'Unconfigured links provide honest demo feedback');
+  const social = footer.querySelector('[aria-label="Instagram"]');
+  assert(social.href === 'https://example.com/wirecoin' && social.rel.includes('noopener'), 'Configured destination works as an external link');
+  assert(!fixture.querySelector('.promotions, .promotion-dialog'), 'Promotions stay removed by default');
+  currentApp = await mountApp(fixture, { features: { footer: false } });
+  control.click();
+  assert(!footer.isConnected && !fixture.querySelector('.site-footer'), 'Footer can be removed cleanly');
+  assert(!fixture.querySelector('main').classList.contains('page-content--with-footer'), 'Disabling footer restores the layout');
+});
 
 await test('Remount replaces the previous app and detaches old actions', async () => {
   const first = await mountApp(fixture);

@@ -18,3 +18,7 @@
 .button--primary:not(:disabled):active { background: var(--color-primary-active); }
 .button--secondary:not(:disabled):active { background: var(--color-surface-active); }
 .button:disabled { cursor: default; opacity: 0.5; }
+
+.button--text { background: transparent; border-color: transparent; color: var(--color-text-muted); font-weight: var(--font-weight-regular); text-decoration: none; }
+@media (hover: hover) { .button--text:not(:disabled):hover { color: var(--color-primary); } }
+.button--text:not(:disabled):active { color: var(--color-primary-active); }

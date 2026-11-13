@@ -2,7 +2,7 @@ export function createButton({
   label = '', variant = 'primary', type = 'button',
   className = '', attributes = {}, disabled = false, onClick,
 } = {}) {
-  if (!['primary', 'secondary'].includes(variant)) throw new Error('Unknown button variant: ' + variant);
+  if (!['primary', 'secondary', 'text'].includes(variant)) throw new Error('Unknown button variant: ' + variant);
   const button = document.createElement('button');
   button.type = type;
   button.className = ['button', 'button--' + variant, className].filter(Boolean).join(' ');
